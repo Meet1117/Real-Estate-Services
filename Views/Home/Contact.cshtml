@@ -1,0 +1,349 @@
+﻿@{
+    ViewData["Title"] = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* Button layout */
+    /* .wrap-submit { */
+    /*     display: inline-block; */
+    /*     position: relative; */
+    /* } */
+
+    #submitBtn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin: 0.75rem 0;
+        font-weight: 600;
+        cursor: pointer;
+        border: 0;
+        border-radius: 6px;
+        /* background: #0f62fe; /* primary color — change if you want */ */
+        color: #fff;
+        transition: transform .12s ease, background .18s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+        /* Disabled look */
+        #submitBtn[disabled] {
+            opacity: 0.7;
+            cursor: default;
+            transform: scale(.995);
+        }
+
+    /* Loader (circle) */
+    .btn-loader {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 2px solid rgba(255,255,255,0.25);
+        border-top-color: transparent;
+        box-sizing: border-box;
+        display: none; /* shown only when loading */
+    }
+
+    /* Spinner movement when loading */
+    #submitBtn.loading .btn-loader {
+        display: inline-block;
+        animation: btn-spin 0.9s linear infinite;
+    }
+    @@keyframes btn-spin {
+        to
+
+    {
+        transform: rotate(360deg);
+    }
+
+    }
+
+    /* Check SVG hidden until success */
+    .btn-check {
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        opacity: 0;
+        transform: scale(0.6);
+        transition: opacity .18s ease, transform .24s cubic-bezier(.2,.9,.3,1);
+    }
+
+        .btn-check path {
+            stroke: #fff;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            transition: stroke-dashoffset .36s ease .05s;
+        }
+
+    /* Success state */
+    #submitBtn.success {
+        background: #16a34a;
+    }
+        /* green background */
+        #submitBtn.success .btn-text {
+            display: inline-block;
+            transform: translateY(-2px);
+        }
+
+        #submitBtn.success .btn-loader {
+            display: none;
+        }
+
+        #submitBtn.success .btn-check {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+            #submitBtn.success .btn-check path {
+                stroke-dashoffset: 0;
+            }
+
+    /* Error state */
+    #submitBtn.error {
+        background: #dc2626;
+        animation: shake .32s ease;
+    }
+    @@keyframes shake {
+        10%, 90%
+
+    {
+        transform: translateX(-1px);
+    }
+
+    20%, 80% {
+        transform: translateX(2px);
+    }
+
+    30%, 50%, 70% {
+        transform: translateX(-4px);
+    }
+
+    40%, 60% {
+        transform: translateX(4px);
+    }
+
+    }
+
+    /* status message area */
+    .contact-status {
+        margin-top: .75rem;
+        min-height: 1.2rem;
+        font-size: 0.95rem;
+        color: #0f172a;
+        opacity: 0;
+        transition: opacity .2s ease;
+    }
+
+        .contact-status.show {
+            opacity: 1;
+        }
+
+    /* small responsive tweak */
+    @@media (max-width:480px) {
+        #submitBtn
+
+    {
+        padding: 0.6rem 0.9rem;
+        gap: 0.4rem;
+        font-size: 0.95rem;
+    }
+
+    }
+</style>
+
+<!-- Featured Title -->
+<div id="featured-title" class="featured-title clearfix">
+    <div id="featured-title-inner" class="container clearfix">
+        <div class="featured-title-inner-wrap">
+            <div id="breadcrumbs">
+                <div class="breadcrumbs-inner">
+                    <div class="breadcrumb-trail">
+                        <a href="index.html" class="trail-begin">Home</a>
+                        <span class="sep">|</span>
+                        <span class="trail-end">Contact</span>
+                    </div>
+                </div>
+            </div>
+            <div class="featured-title-heading-wrap">
+                <h1 class="feautured-title-heading">
+                    Contact Us
+                </h1>
+            </div>
+        </div><!-- /.featured-title-inner-wrap -->
+    </div><!-- /#featured-title-inner -->
+</div>
+<!-- End Featured Title -->
+<!-- Main Content -->
+<div id="main-content" class="site-main clearfix">
+    <div id="content-wrap">
+        <div id="site-content" class="site-content clearfix">
+            <div id="inner-content" class="inner-content-wrap">
+                <div class="page-content">
+                    <!-- CONTACT -->
+                    <div class="row-contact">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="themesflat-spacer clearfix" data-desktop="61" data-mobile="60" data-smobile="60"></div>
+                                </div><!-- /.col-md-12 -->
+                            </div><!-- /.row -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="themesflat-headings style-2 clearfix">
+                                        <h2 class="heading">CONTACT US</h2>
+                                        <div class="sep has-width w80 accent-bg clearfix"></div>
+                                        <p class="sub-heading">Are you interested in finding out how Aai Shree Khodiyar Construction Services can make your project. For more information on our services please contact us.</p>
+                                    </div>
+                                    <div class="themesflat-spacer clearfix" data-desktop="36" data-mobile="35" data-smobile="35"></div>
+                                    <div class="themesflat-contact-form style-2 clearfix">
+                                        <form id="contactform"
+                                              action="https://formspree.io/f/mjkejvrr"
+                                              method="post"
+                                              accept-charset="utf-8"
+                                              autocomplete="on"
+                                              class="form-submit contact-form wpcf7-form">
+                                            <span class="wpcf7-form-control-wrap your-name">
+                                                <input type="text" tabindex="1" id="name" name="name" value="" class="wpcf7-form-control" placeholder="Name*" required>
+                                            </span>
+                                            <span class="wpcf7-form-control-wrap your-phone">
+                                                <input type="text" tabindex="2" id="phone" name="phone" value="" class="wpcf7-form-control" placeholder="Phone">
+                                            </span>
+                                            <span class="wpcf7-form-control-wrap your-email">
+                                                <input type="email" tabindex="3" id="email" name="email" value="" class="wpcf7-form-control" placeholder="Your Email*" required>
+                                            </span>
+                                            <span class="wpcf7-form-control-wrap your-subject">
+                                                <input type="text" tabindex="4" id="subject" name="subject" value="" class="wpcf7-form-control" placeholder="Subject">
+                                            </span>
+                                            <span class="wpcf7-form-control-wrap your-message">
+                                                <textarea name="message" tabindex="5" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea" placeholder="Message*" required></textarea>
+                                            </span>
+                                            <span class="wrap-submit">
+                                                <button type="submit" id="submitBtn" class="submit wpcf7-form-control wpcf7-submit">
+                                                    <span class="btn-text">SEND US</span>
+                                                    <span class="btn-loader" aria-hidden="true"></span>
+
+                                                    <!-- draw a check SVG that will animate on success -->
+                                                    <svg class="btn-check" viewBox="0 0 24 24" aria-hidden="true">
+                                                        <path d="M20 6L9 17l-5-5" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                    </svg>
+                                                </button>
+                                            </span>
+
+                                        </form>
+                                        <div id="statusMessage" role="status" aria-live="polite" class="contact-status"></div>
+
+                                    </div><!-- /.themesflat-contact-form -->
+                                </div><!-- /.col-md-6 -->
+                                <div class="col-md-6">
+                                    <div class="themesflat-spacer clearfix" data-desktop="0" data-mobile="0" data-smobile="35"></div>
+                                    <div class="themesflat-headings style-2 clearfix">
+                                        <h2 class="heading">INFOMATION</h2>
+                                        <div class="sep has-width w80 accent-bg clearfix"></div>
+                                    </div>
+                                    <div class="themesflat-spacer clearfix" data-desktop="36" data-mobile="35" data-smobile="35"></div>                                        
+                                    <div>
+                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d121643.62943194632!2d73.09068465656041!3d22.322240636409273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395fc8ab91a3ddab%3A0xac39d3bfe1473fb8!2sVadodara%2C%20Gujarat!5e1!3m2!1sen!2sin!4v1757262233885!5m2!1sen!2sin" width="600" height="450" style="border:0; height: 400px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                    </div>
+                                </div><!-- /.col-md-6 -->
+                            </div><!-- /.row -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="themesflat-spacer clearfix" data-desktop="78" data-mobile="60" data-smobile="60"></div>
+                                </div><!-- /.col-md-12 -->
+                            </div><!-- /.row -->
+                        </div><!-- /.container -->
+                    </div>
+                    <!-- END CONTACT -->
+                </div><!-- /.page-content -->
+            </div><!-- /#inner-content -->
+        </div><!-- /#site-content -->
+    </div><!-- /#content-wrap -->
+</div><!-- /#main-content -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.getElementById('contactform');
+      const btn = document.getElementById('submitBtn');
+      const status = document.getElementById('statusMessage');
+      const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mjkejvrr';
+
+      if (!form || !btn) return;
+
+      function setStatus(msg, type) {
+        status.textContent = msg || '';
+        status.classList.toggle('show', !!msg);
+        // type can be 'success', 'error', '' for styling if needed
+      }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        if (form.dataset.sending === 'true') return; // avoid double submits
+        form.dataset.sending = 'true';
+
+        // UI: show loader on button, disable fields
+        btn.classList.remove('success', 'error');
+        btn.classList.add('loading');
+        btn.setAttribute('disabled', 'disabled');
+        setStatus('', '');
+
+        // Collect values
+        const data = new FormData(form);
+
+        try {
+          const res = await fetch(FORMSPREE_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: data
+          });
+
+          // Formspree returns 200/201 on success. We'll treat any non-2xx as error.
+          if (res.ok) {
+            // animate success
+            btn.classList.remove('loading');
+            btn.classList.add('success');
+            // set the text on btn as message sent! after 6 seconds the text converts into SEND US
+
+			btn.querySelector('.btn-text').textContent = 'Message Sent!';
+			setTimeout(() => {
+			  btn.querySelector('.btn-text').textContent = 'SEND US';
+			}, 4800);
+
+            setStatus('Message sent! Thank you — we will contact you soon.', 'success');
+
+            // clear the form
+            form.reset();
+
+            // keep success visible for a bit, then restore button
+            setTimeout(function () {
+              btn.classList.remove('success');
+              btn.removeAttribute('disabled');
+              form.dataset.sending = 'false';
+              setStatus('', '');
+            }, 4800);
+
+          } else {
+            // read body for more context if possible
+            let errorText = 'Something went wrong. Please try again later.';
+            try {
+              const body = await res.json();
+              if (body && body.error) errorText = body.error;
+            } catch (err) { /* ignore parsing */ }
+
+            btn.classList.remove('loading');
+            btn.classList.add('error');
+            setStatus(errorText, 'error');
+            btn.removeAttribute('disabled');
+            form.dataset.sending = 'false';
+            setTimeout(()=>{ btn.classList.remove('error'); setStatus('', ''); }, 6000);
+          }
+        } catch (err) {
+          btn.classList.remove('loading');
+          btn.classList.add('error');
+          setStatus('Network error. Please check your connection and try again.', 'error');
+          btn.removeAttribute('disabled');
+          form.dataset.sending = 'false';
+          setTimeout(()=>{ btn.classList.remove('error'); setStatus('', ''); }, 6000);
+        }
+      });
+    });
+</script>

@@ -1,0 +1,144 @@
+﻿@model Real_Estate_Services.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout_Login.cshtml";
+}
+
+<link href="~/css/login-signup.css" rel="stylesheet" />
+
+<div class="login-container m-auto">
+    <div class="login-header">
+        <img src="~/assets/img/Logo-ISKC2.png" alt="" class="company-name w-50 h-50"/>
+        <div class="company-tagline">Building excellence since 2000</div>
+    </div>
+
+    <!-- keep asp attributes so server posting still works -->
+    <div class="login-form">
+        <form id="loginForm" method="post" asp-action="Login" asp-controller="Users">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <div class="input-group">
+                    <input asp-for="Username" type="text" id="username" placeholder="Enter your username" required class="form-control" />
+                    <span class="icon"><i class="fas fa-user input-icon"></i></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-group">
+                    <!-- password input -->
+                    <input asp-for="Password" type="password" id="password" placeholder="Enter your password" required class="form-control" />
+                    <!-- password toggle (eye) — clicking toggles show/hide -->
+                    <span class="icon password-toggle"><i class="fas fa-eye input-icon"></i></span>
+                </div>
+            </div>
+
+            <div class="form-options">
+                <div class="remember-me">
+                    <input type="checkbox" id="remember" />
+                    <label asp-for="IsRemember">Remember me</label>
+                </div>
+                <a href="#" class="forgot-password">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="login-button btn btn-primary">
+                <i class="fas fa-sign-in-alt me-2"></i>Login
+            </button>
+        </form>
+    </div>
+
+    <div class="login-footer">
+        © 2023 Aai Shree Khodiyar Construction. All rights reserved. | <a href="#">Privacy Policy</a>
+    </div>
+</div>
+
+@section scripts
+{
+    <!-- jQuery (single include) -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <!-- Password toggle (same approach as your old page) -->
+    <script>
+        // Password toggle functionality
+        document.querySelectorAll('.password-toggle').forEach(function(toggle) {
+            toggle.addEventListener('click', function() {
+                const input = this.closest('.input-group').querySelector('input');
+                const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+                input.setAttribute('type', type);
+
+                // Toggle eye icon
+                this.querySelector('i').classList.toggle('fa-eye');
+                this.querySelector('i').classList.toggle('fa-eye-slash');
+            });
+        });
+    </script>
+
+    <!-- REMEMBER ME JS (kept exactly as in your old login page) -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            // Autofill from Cookies
+            if (localStorage.getItem("rememberMe") === "true") {
+                $("#username").val(localStorage.getItem("username"));
+                $("#password").val(localStorage.getItem("password"));
+                $("#remember").prop("checked", true);
+            }
+
+            // On form submit
+            $("form").submit(function () {
+                if ($("#remember").is(":checked")) {
+                    localStorage.setItem("username", $("#username").val());
+                    localStorage.setItem("password", $("#password").val());
+                    localStorage.setItem("rememberMe", true);
+                } else {
+                    localStorage.removeItem("username");
+                    localStorage.removeItem("password");
+                    localStorage.removeItem("rememberMe");
+                }
+            });
+
+        });
+    </script>
+
+    <!-- Form submission and focus effects (adapted so form still submits to server after validation) -->
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Simple validation
+            if(username.trim() === '') {
+                alert('Please enter your username');
+                e.preventDefault(); // block submit if invalid
+                return;
+            }
+
+            // Show loading state and allow form to submit to server
+            const btn = document.querySelector('.login-button');
+            btn.dataset.originalText = btn.textContent;
+            btn.textContent = 'Logging in...';
+            btn.disabled = true;
+            // NOTE: Do NOT call e.preventDefault() here — allow normal submission so server receives data.
+        });
+
+        // Add focus effects to inputs
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#3498db';
+                const icon = this.parentElement.querySelector('.input-icon');
+                if (icon) icon.style.color = '#3498db';
+            });
+
+            input.addEventListener('blur', function() {
+                this.style.borderColor = '#ddd';
+                const icon = this.parentElement.querySelector('.input-icon');
+                if (icon) icon.style.color = '#95a5a6';
+            });
+        });
+    </script>
+
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

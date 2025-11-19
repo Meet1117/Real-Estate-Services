@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Real_Estate_Services.Models.Sites>
+@{
+	ViewData["Title"] = "Projects";
+	Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+
+<div class="row g-3 mb-4 align-items-center justify-content-between mt-5">
+	<div class="col-auto">
+		<h1 class="app-page-title mb-0">Orders</h1>
+	</div>
+</div><!--//row-->
+
+
+
+<div class="tab-content" id="orders-table-tab-content">
+	<div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+		<div class="app-card app-card-orders-table shadow-sm mb-5">
+			<div class="app-card-body">
+				<div class="table-responsive">
+					<table class="table app-table-hover mb-0 text-left">
+						<thead>
+							<tr>
+								<th class="cell ps-4">Image</th>
+								<th class="cell">Name</th>
+								<th class="cell">Client</th>
+								<th class="cell">Description</th>
+								<th class="cell">Brochures</th>
+								<th class="cell text-center">Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach(var item in Model)
+							{
+								<tr>
+									<td class="cell">
+										<img src="@item.Image1" width="100px" height="100px"/>
+									</td>
+									<td class="cell fw-bold">@item.SiteName</td>
+									<td class="cell fw-bold">Meet Patel</td>
+									<td class="cell"><span class="truncate">@item.Description</span></td>
+									<td class="cell"><a class="btn app-btn-secondary" href="@item.Brochure">View</a></td>
+									<td class="cell text-center">
+										<a asp-action="Edit" asp-controller="admin" asp-route-Id="@item.Id" class="btn btn-primary text-white">Edit</a>
+										<a asp-action="Delete" asp-controller="admin" asp-route-Id="@item.Id" class="btn btn-danger text-white">Delete</a>
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div><!--//table-responsive-->
+
+			</div><!--//app-card-body-->
+		</div><!--//app-card-->
+
+	</div><!--//tab-pane-->
+</div><!--//tab-content-->
+

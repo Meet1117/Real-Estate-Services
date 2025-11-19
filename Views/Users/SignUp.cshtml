@@ -1,0 +1,130 @@
+﻿@model Real_Estate_Services.Models.SignUpViewModel
+
+@{
+	ViewData["Title"] = "SignUp";
+	Layout = "~/Views/Shared/_Layout_Login.cshtml";
+}
+
+
+<link href="~/css/login-signup.css" rel="stylesheet" />
+
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-lg-7 col-md-9">
+			<div class="form-container">
+				<div class="d-flex justify-content-between align-items-center">
+					<div class="header">
+						<h1 class="fs-3">Create Your Account</h1>
+						<p class="fs-6">Join our community and get started today</p>
+					</div>
+					<div>
+						<a asp-action="Index" asp-controller="Home" class="btn btn-secondary">
+							<i class="fas fa-arrow-left me-2"></i>Back to Home
+						</a>
+					</div>
+				</div>
+
+				<div class="divider">Register with Email</div>
+
+				<!-- Validation Summary -->
+				<div class="alert alert-danger d-none">
+					Please fix the errors below
+				</div>
+
+				<div asp-validation-summary="ModelOnly"></div>
+				<form method="post" asp-action="SignUp" asp-controller="Users">
+					@Html.AntiForgeryToken()
+					<!-- Username -->
+					<div class="mb-4">
+						<label class="form-label">Username</label>
+						<div class="input-group">
+							<input asp-for="Username" type="text" class="form-control" placeholder="Enter your username">
+							<span class="icon"><i class="fas fa-user"></i></span>
+						</div>
+						<span class="text-danger" asp-validation-for="Username"></span>
+					</div>
+
+					<!-- Email and Mobile -->
+					<div class="row">
+						<div class="col-md-6 mb-4">
+							<label class="form-label">Email Address</label>
+							<div class="input-group">
+								<input asp-for="Email" type="email" class="form-control" placeholder="name@example.com">
+								<span class="icon"><i class="fas fa-envelope"></i></span>
+							</div>
+							<span class="text-danger" asp-validation-for="Email"></span>
+						</div>
+					</div>
+
+					<!-- Password and Confirm Password -->
+					<div class="row">
+						<div class="col-md-6 mb-4">
+							<label class="form-label">Password</label>
+							<div class="input-group">
+								<input asp-for="Password" type="password" class="form-control" placeholder="Create a password">
+								<span class="icon password-toggle"><i class="fas fa-eye"></i></span>
+							</div>
+							<div class="form-text">Use 8+ characters with a mix of letters & numbers</div>
+							<span class="text-danger" asp-validation-for="Password"></span>
+						</div>
+
+						<div class="col-md-6 mb-4">
+							<label class="form-label">Confirm Password</label>
+							<div class="input-group">
+								<input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm your password">
+								<span class="icon password-toggle"><i class="fas fa-eye"></i></span>
+							</div>
+							<span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+						</div>
+					</div>
+
+					<!-- Active Status -->
+					<div class="checkbox-container">
+						<input type="checkbox" checked="checked" asp-for="IsActive" required>
+						<label>Activate my account immediately</label>
+						<br>
+					</div>
+					<span asp-validation-for="IsActive" class="text-danger" style="margin-top: -10px;"></span>
+
+					<!-- Submit Button -->
+					<div class="d-grid">
+						<button type="submit" class="btn btn-primary fs-6">
+							<i class="fas fa-user-plus me-2"></i>Create Account
+						</button>
+					</div>
+				</form>
+
+				<!-- Login Link -->
+				<div class="login-link">
+					Already have an account? <a asp-action="Login">Sign In</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	// Password toggle functionality
+	document.querySelectorAll('.password-toggle').forEach(function(toggle) {
+		toggle.addEventListener('click', function() {
+			const input = this.closest('.input-group').querySelector('input');
+			const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+			input.setAttribute('type', type);
+
+			// Toggle eye icon
+			this.querySelector('i').classList.toggle('fa-eye');
+			this.querySelector('i').classList.toggle('fa-eye-slash');
+		});
+	});
+</script>
+
+@{
+	<partial name="_ValidationScriptsPartial" />
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>

@@ -1,0 +1,55 @@
+﻿@model Real_Estate_Services.Models.Sites
+
+@{
+    ViewData["Title"] = "Create Site";
+    Layout = "~/Views/Shared/_Layout_Login.cshtml";
+}
+
+<h2>Create New Site</h2>
+
+<form asp-action="Create" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+        <label asp-for="SiteName" class="control-label"></label>
+        <input asp-for="SiteName" class="form-control" />
+        <span asp-validation-for="SiteName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Category" class="control-label"></label>
+        <input asp-for="Category" class="form-control" />
+        <span asp-validation-for="Category" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address" class="control-label"></label>
+        <input asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ImageFiles" class="control-label"></label>
+        <input asp-for="ImageFiles" class="form-control" type="file" multiple />
+        <span asp-validation-for="ImageFiles" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="BrochureFile" class="control-label"></label>
+        <input asp-for="BrochureFile" class="form-control" type="file" />
+        <span asp-validation-for="BrochureFile" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

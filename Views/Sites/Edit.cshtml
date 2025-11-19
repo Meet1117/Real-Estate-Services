@@ -1,0 +1,88 @@
+﻿@model Real_Estate_Services.Models.Sites
+
+@{
+    ViewData["Title"] = "Edit Site";
+    Layout = "~/Views/Shared/_Layout_Login.cshtml";
+}
+<link href="~/css/login-signup.css" rel="stylesheet" />
+
+<form asp-action="Edit" enctype="multipart/form-data" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="SiteName" class="control-label"></label>
+        <input asp-for="SiteName" class="form-control" />
+        <span asp-validation-for="SiteName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Category" class="control-label"></label>
+        <input asp-for="Category" class="form-control" />
+        <span asp-validation-for="Category" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address" class="control-label"></label>
+        <input asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Existing Images</label>
+        <div>
+            @if (!string.IsNullOrEmpty(Model.Image1))
+            {
+                <img src="@Model.Image1" width="100" class="m-1" />
+            }
+            @if (!string.IsNullOrEmpty(Model.Image2))
+            {
+                <img src="@Model.Image2" width="100" class="m-1" />
+            }
+            @if (!string.IsNullOrEmpty(Model.Image3))
+            {
+                <img src="@Model.Image3" width="100" class="m-1" />
+            }
+            @if (!string.IsNullOrEmpty(Model.Image4))
+            {
+                <img src="@Model.Image4" width="100" class="m-1" />
+            }
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ImageFiles" class="control-label"></label>
+        <input asp-for="ImageFiles" type="file" class="form-control" multiple />
+        <span asp-validation-for="ImageFiles" class="text-danger"></span>
+        <small class="form-text text-muted">Leave empty to keep existing images.</small>
+    </div>
+
+    <div class="form-group">
+        <label>Existing Brochure</label>
+        @if (!string.IsNullOrEmpty(Model.Brochure))
+        {
+            <a href="@Model.Brochure" target="_blank">View Current Brochure</a>
+        }
+    </div>
+
+    <div class="form-group">
+        <label asp-for="BrochureFile" class="control-label"></label>
+        <input asp-for="BrochureFile" type="file" class="form-control" />
+        <span asp-validation-for="BrochureFile" class="text-danger"></span>
+        <small class="form-text text-muted">Leave empty to keep existing brochure.</small>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
